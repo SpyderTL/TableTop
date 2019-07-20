@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css" />
+</head>
+<body class="bg-light">
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-md-8">
+				<div class="shadow-lg">
+					STUFF
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="shadow-lg">
+					<div class="row">
+						<div class="col-md-12">
+							<textarea id="textarea" class="form-control" style="min-width: 100%" rows="25"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<input id="chat" type="text" class="form-control"></input>
+							<button id="send" class="btn btn-primary">Send</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function () {
+			window.socket = new WebSocket("ws://localhost:63632/api/Events");
+
+			window.socket.onerror = function (event) {
+			};
+
+			window.socket.onmessage = function (event) {
+				$("#textarea").append(event.data + "\n");
+			};
+
+			window.socket.onopen = function (event) {
+			};
+
+			window.socket.onclose = function (event) {
+			};
+
+			$("#send").on("click", function () {
+				$.post({
+					url: "/api/chat",
+					data: $("#chat").val()
+				});
+			});
+		});
+	</script>
+</body>
+</html>

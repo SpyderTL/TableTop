@@ -12,6 +12,8 @@ namespace Table
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+			GameContext.Current.Start();
         }
     }
 }
