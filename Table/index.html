@@ -9,21 +9,23 @@
 	<div class="container">
 		<div class="row mt-5">
 			<div class="col-md-8">
-				<div class="shadow-lg">
-					STUFF
+				<div class="shadow-lg col-md-12 p-0 m-0" style="width:100%; height:600px; overflow: scroll">
+					<canvas id="canvas" width="320" height="320" style="width: 3200px; height: 3200px;"></canvas>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="shadow-lg">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 mb-2">
 							<textarea id="textarea" class="form-control" style="min-width: 100%" rows="25"></textarea>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
-							<input id="chat" type="text" class="form-control"></input>
-							<button id="send" class="btn btn-primary">Send</button>
+						<div class="col-md-12 input-group">
+							<input type="text" id="chat" class="form-control" placeholder="Chat" aria-label="Chat" aria-describedby="send">
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="button" id="send">Send</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -55,6 +57,11 @@
 					url: "/api/chat",
 					data: $("#chat").val()
 				});
+			});
+			
+			$("#canvas").on("click", function (e) {
+				var ctx = $("#canvas")[0].getContext("2d");
+				ctx.fillRect(e.offsetX / 10, e.offsetY / 10, 1, 1); 
 			});
 		});
 	</script>
